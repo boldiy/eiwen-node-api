@@ -13,5 +13,10 @@ module.exports = {
         code: 10003,
         message: '注册发生错误',
         result: ''
+    },
+    userNotExists: {
+        code: 10002,
+        message: '用户名或密码不正确',
+        result: ''
     }
 }
