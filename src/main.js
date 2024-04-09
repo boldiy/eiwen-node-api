@@ -2,7 +2,7 @@ const Koa = require("koa")
 
 const { APP_PORT } = require("./config/config.default")
 
-const userRouter = require("./router/user.router")
+const router = require("./router")
 
 const { koaBody } = require("koa-body")
 
@@ -12,7 +12,8 @@ const errHandler = require("./constant/err.handler")
 const app = new Koa()
 
 app.use(koaBody())
-app.use(userRouter.routes())
+app.use(router.routes())
+app.use(router.allowedMethods()) //当接收到不支持的请求方式时报提示
 
 app.on('error', errHandler)
 
