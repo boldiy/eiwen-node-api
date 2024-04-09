@@ -1,4 +1,4 @@
-const { createUser, getUserInfo } = require("../service/user.service");
+const { createUser, getUserInfo, modifyPassword } = require("../service/user.service");
 const { registerError, userNotExists } = require("../constant/err.type")
 const env = require("../config/config.default")
 const jwt = require("jsonwebtoken")
@@ -23,7 +23,7 @@ class UserController {
   async login(ctx, next) {
     try {
       //获取用户信息
-      const userInfo = await getUserInfo(ctx.request.body.username);
+      const userInfo = await getUserInfo({ username: ctx.request.body.username });
       if (!userInfo) {
         return ctx.app.emit('error', userNotExists, ctx)
       }
@@ -43,6 +43,22 @@ class UserController {
     } catch (error) {
       console.error('发生异常', error);
       ctx.app.emit('error', registerError, ctx)
+    }
+  }
+  //修改密码(从JWT中读取用户名)
+  async modifyPassword(ctx, next) {
+    const { password, jwt } = ctx.request.body
+    try {
+      await modifyPassword(jwt.username, password)
+      ctx.body = {
+        code: 0,
+        message: '密码修改成功',
+        result: {
+          username: jwt.username
+        }
+      }
+    } catch (error) {
+      console.error('发生异常', error);
     }
   }
 }

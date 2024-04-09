@@ -18,5 +18,25 @@ module.exports = {
         code: 10002,
         message: '用户名或密码不正确',
         result: ''
-    }
+    },
+    tokenExpired: {
+        code: 10002,
+        message: 'Token已过期',
+        result: ''
+    },
+    invalidToken: {
+        code: 10002,
+        message: '无效的Token',
+        result: ''
+    },
+    passwordNotEmpty: {
+        code: 10002,
+        message: '原始密码和新密码不能为空',
+        result: ''
+    },
+    oldPasswordError: {
+        code: 10002,
+        message: '原始密码错误',
+        result: ''
+    },
 }

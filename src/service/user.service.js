@@ -1,10 +1,19 @@
 const User = require('../model/user.model')
 
 class UserService {
+  //创建用户
   async createUser(username, password) {
     const res = await User.create({ username, password });
     return res
   }
+
+  //修改密码
+  async modifyPassword(username, password) {
+    const userInfo = await User.findOne({ where: { username: username } })
+    userInfo.password = password
+    userInfo.save()
+  }
+
   //获取用户信息
   async getUserInfo({ id, username, password }) {
     let where = {}
