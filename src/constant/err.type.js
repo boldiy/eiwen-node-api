@@ -39,4 +39,9 @@ module.exports = {
         message: '原始密码错误',
         result: ''
     },
+    isAdminPermission: {
+        code: 10002,
+        message: '只有管理员才可访问',
+        result: ''
+    },
 }

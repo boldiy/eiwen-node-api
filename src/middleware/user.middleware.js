@@ -64,9 +64,10 @@ const validatorPassowrd = async (ctx, next) => {
 //修改密码（检查合理性）
 const verifyPassowrd = async (ctx, next) => {
     try {
-        const { oldpassword, jwt } = ctx.request.body;
+        const { oldpassword } = ctx.request.body;
+
         //检查用户是否存在
-        const userInfo = await getUserInfo({ username: jwt.username })
+        const userInfo = await getUserInfo({ username: ctx.jwt.username })
         if (!userInfo) {
             return ctx.app.emit('error', userNotExists, ctx)
         }

@@ -13,7 +13,7 @@ const app = new Koa()
 
 app.use(koaBody())
 app.use(router.routes())
-app.use(router.allowedMethods()) //当接收到不支持的请求方式时报提示
+app.use(router.allowedMethods()) //当接收到不支持的请求方式时报提示 
 
 app.on('error', errHandler)
 

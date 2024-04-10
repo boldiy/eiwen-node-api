@@ -9,7 +9,7 @@ const auth = async (ctx, next) => {
 
         try {
             const user = jwt.verify(token, env.JWT_SECRET);
-            ctx.request.body.jwt = user
+            ctx.jwt = user //验证jwt后，将用户信息存入ctx
         } catch (error) {
             console.error(error);
             switch (error.name) {
@@ -23,10 +23,24 @@ const auth = async (ctx, next) => {
         }
 
     } catch (error) {
-        console.error(error);
+        return console.error('发生异常', error)
+
     }
 
     await next()
 }
 
-module.exports = { auth }
+//检查是否管理员
+const isAdmin = async (ctx, next) => {
+    try {
+        const { isAdmin } = ctx.jwt
+        if (!isAdmin) {
+            return ctx.app.emit('error', errType.isAdminPermission, ctx)
+        }
+    } catch (error) {
+        return console.error('发生异常', error)
+    }
+    await next()
+}
+
+module.exports = { auth, isAdmin }

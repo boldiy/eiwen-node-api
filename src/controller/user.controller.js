@@ -47,9 +47,9 @@ class UserController {
   }
   //修改密码(从JWT中读取用户名)
   async modifyPassword(ctx, next) {
-    const { password, jwt } = ctx.request.body
+    const { password } = ctx.request.body
     try {
-      await modifyPassword(jwt.username, password)
+      await modifyPassword(ctx.jwt.username, password)
       ctx.body = {
         code: 0,
         message: '密码修改成功',

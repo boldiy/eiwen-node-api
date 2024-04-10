@@ -14,7 +14,7 @@ const User = seq.define("user", {
         comment: "年龄"
     },
     password: {
-        type: DataTypes.CHAR(32),
+        type: DataTypes.CHAR(64),
         comment: "密码，经过加密"
     },
     isAdmin: {
@@ -29,6 +29,6 @@ const User = seq.define("user", {
     }
 )
 
-// User.sync({ force: true }) //同步创建数据表
-
+// User.sync({ force: true }) //将创建表,如果表已经存在,则将其首先删除
+User.sync({ alter: true }) //这将检查数据库中表的当前状态
 module.exports = User
