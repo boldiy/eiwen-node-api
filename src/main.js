@@ -8,8 +8,12 @@ const { koaBody } = require("koa-body")
 
 const errHandler = require("./constant/err.handler")
 
+const onerror = require('koa-onerror')
 
 const app = new Koa()
+
+onerror(app)
+
 
 app.use(koaBody())
 app.use(router.routes())

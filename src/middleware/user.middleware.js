@@ -13,6 +13,7 @@ const userValidator = async (ctx, next) => {
 
 //根据用户名检查用户是否存在
 const userVerify = async (ctx, next) => {
+    console.log(ddd);
     const { username } = ctx.request.body;
     try {
         if (await getUserInfo({ username })) {
